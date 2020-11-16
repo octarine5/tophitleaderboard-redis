@@ -7,7 +7,7 @@ import java.util.Random;
 
 import com.example.demo.GlobalLeaderboardRedis;
 import com.example.demo.Leaderboard;
-import com.example.demo.Main;
+import com.example.demo.Program;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,15 +78,15 @@ public class EmployeeController
 	public Optional<Leaderboard> updateEmployee(@PathVariable String userId, @PathVariable Double score)
 	{
 		GlobalLeaderboardRedis globalLeader = new GlobalLeaderboardRedis();
-		Main.updateScore(userId, score);
+		Program.updateScore(userId, score);
 		return Optional.ofNullable(globalLeader.getMyLeaderboardPosition(userId));
 	}
 	@PostMapping("/add/{userId}/{score}")
 	public Leaderboard addEmployee(@PathVariable String userId, @PathVariable Double score)
 	{
 		GlobalLeaderboardRedis globalLeader = new GlobalLeaderboardRedis();
-		Main.adduser(userId, score);
-		Main.updateScore(userId, score);
+		Program.adduser(userId, score);
+		Program.updateScore(userId, score);
 		return globalLeader.getMyLeaderboardPosition(userId);
 	}
 
